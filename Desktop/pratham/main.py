@@ -31,10 +31,7 @@ def recordSound():
     playsound("wait.wav")
 
     with open("recording.wav", "rb") as audio_file, open("inputimg.jpg", "rb") as image_file:
-        files = {
-            "audio": ("recording.wav", audio_file, "audio/wav"),
-            "image": ("inputimg.jpg", image_file, "image/jpeg")
-        }
+        files = {"file": ("recording.wav", f, "audio/wav")}
         response = requests.post(FLASK_API_URL, files=files, timeout=1000)
 
 
@@ -92,8 +89,11 @@ def captureImage():
 
     playsound("wait.wav")
 
-    with open("recording.wav", "rb") as f:
-        files = {"file": ("recording.wav", f, "audio/wav")}
+    with open("recording.wav", "rb") as audio_file, open("inputimg.jpg", "rb") as image_file:
+        files = {
+            "audio": ("recording.wav", audio_file, "audio/wav"),
+            "image": ("inputimg.jpg", image_file, "image/jpeg")
+        }
         response = requests.post(FLASK_API_URL, files=files, timeout=1000)
 
     if response.status_code == 200:
