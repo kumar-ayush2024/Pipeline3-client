@@ -8,7 +8,7 @@ import requests
 import cv2
 
 FLASK_API_URL="http://127.0.0.1:5000/checkSST"
-
+FLASK_API_URLWI="http://127.0.0.1:5000/checkWImage"
 def recordSound():
     recorder = PvRecorder(device_index=-1, frame_length=512)
     recorder.start()
@@ -94,7 +94,7 @@ def captureImage():
             "audio": ("recording.wav", audio_file, "audio/wav"),
             "image": ("inputimg.jpg", image_file, "image/jpeg")
         }
-        response = requests.post(FLASK_API_URL, files=files, timeout=1000)
+        response = requests.post(FLASK_API_URLWI, files=files, timeout=1000)
 
     if response.status_code == 200:
         wav_path = "response.mp3"
@@ -107,6 +107,8 @@ def captureImage():
         except Exception as e:
             print("Failed to delete audio files")
         print("DONE")
+    else:
+        print("No response")
 
 
 
@@ -146,6 +148,10 @@ def takeUserInput():
                 playsound('go.wav')
                 recordSound()
             if query=="capture image":
+                playsound('three.wav')
+                playsound('two.wav')
+                playsound('one.wav')
+                playsound('go.wav')
                 captureImage()
         except Exception as e:
             print("Say that again")
