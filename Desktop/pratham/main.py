@@ -158,6 +158,7 @@ def takeUserInput():
 
 def startLens():
     print("Lens Startup")
+    playsound('startup.mp3')
     r = speech_recognition.Recognizer()
     with speech_recognition.Microphone() as source:
         print("Listening.....")
